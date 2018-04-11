@@ -1,0 +1,47 @@
+buildscript {
+	ext {
+    	springBootVersion = '1.5.12.RELEASE'
+	}
+	repositories {
+        jcenter()
+	}
+	dependencies {
+	    classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+	    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+ext {
+	version = '0.0.1.BUILD-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.12.RELEASE")
+	compile("org.apache.commons:commons-lang3:3.4")
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.5.12.RELEASE")
+	compile fileTree(dir: 'libs/src/main/', include: '*.jar')
+
+    testCompile fileTree(dir: 'libs/src/test/', include: '*.jar')
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+
+}
+
+jar {
+	baseName = 'mongodb-service-broker'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.6'
+}
